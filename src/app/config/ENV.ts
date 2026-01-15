@@ -11,6 +11,12 @@ interface EnvConfig {
     API_SECRET: string;
   };
   BCRYPT_SALT: string;
+  JWT: {
+    ACCESS_SECRET: string;
+    ACCESS_EXPIRED: string;
+    REFRESH_SECRET: string;
+    REFRESH_EXPIRED: string;
+  };
 }
 
 const loadEnvVars = (): EnvConfig => {
@@ -22,6 +28,10 @@ const loadEnvVars = (): EnvConfig => {
     'API_KEY',
     'API_SECRET',
     'BCRYPT_SALT',
+    'ACCESS_SECRET',
+    'ACCESS_EXPIRED',
+    'REFRESH_SECRET',
+    'REFRESH_EXPIRED',
   ];
   requiredEnvVars.forEach((key) => {
     if (!process.env[key]) {
@@ -38,6 +48,12 @@ const loadEnvVars = (): EnvConfig => {
       API_SECRET: process.env.API_SECRET as string,
     },
     BCRYPT_SALT: process.env.BCRYPT_SALT as string,
+    JWT: {
+      ACCESS_SECRET: process.env.ACCESS_SECRET as string,
+      ACCESS_EXPIRED: process.env.ACCESS_EXPIRED as string,
+      REFRESH_SECRET: process.env.REFRESH_SECRET as string,
+      REFRESH_EXPIRED: process.env.REFRESH_EXPIRED as string,
+    },
   };
 };
 

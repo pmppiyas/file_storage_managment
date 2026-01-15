@@ -8,7 +8,7 @@ import {
   handleZodValidationError,
   validationError,
 } from '../helper/ErrorHelperFunction';
-import { ENV } from '../../config/ENV';
+import { ENV } from '../config/ENV';
 
 export const globalErrorHandler = (
   err: any,

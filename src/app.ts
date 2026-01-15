@@ -3,10 +3,13 @@ import cors from 'cors';
 import express from 'express';
 import router from './app/routes/router';
 import { globalErrorHandler } from './app/middleware/globalErrorHandler';
+import passport from 'passport';
+import './app/config/passport';
 
 const app = express();
 
 app.use(cors());
+app.use(passport.initialize());
 app.use(compression());
 app.use(express.json());
 
