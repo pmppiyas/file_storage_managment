@@ -7,6 +7,7 @@ import { createToken } from '../../utils/token/createToken';
 import { setAuthCookie } from '../../utils/cookie';
 import sendResponse from '../../utils/sendResponse';
 import { ENV } from '../../config/ENV';
+import { AuthServices } from './auth.services';
 
 const localLogin = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -82,8 +83,21 @@ const googleCallback = catchAsync(
   }
 );
 
+const forgetPassword = catchAsync(async (req: Request, res: Response) => {
+  const { email } = req.body;
+  await AuthServices.forgetPassword(email);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Reset link sent to your email successfully!',
+    data: null,
+  });
+});
+
 export const AuthController = {
   localLogin,
   googleLogin,
   googleCallback,
+  forgetPassword,
 };

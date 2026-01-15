@@ -23,6 +23,10 @@ interface EnvConfig {
     CALLBACK_URL: string;
   };
   FRONTEND_URL: string;
+  NODE_MAILER: {
+    SENDER_EMAIL: string;
+    SENDER_PASSWORD: string;
+  };
 }
 
 const loadEnvVars = (): EnvConfig => {
@@ -42,6 +46,8 @@ const loadEnvVars = (): EnvConfig => {
     'CLIENT_SECRET',
     'CALLBACK_URL',
     'FRONTEND_URL',
+    'SENDER_EMAIL',
+    'SENDER_PASSWORD',
   ];
   requiredEnvVars.forEach((key) => {
     if (!process.env[key]) {
@@ -52,11 +58,13 @@ const loadEnvVars = (): EnvConfig => {
     PORT: process.env.PORT as string,
     DATABASE_URL: process.env.DATABASE_URL as string,
     NODE_ENV: process.env.NODE_ENV as 'development' | 'production',
+
     CLOUDINARY: {
       CLOUD_NAME: process.env.CLOUD_NAME as string,
       API_KEY: process.env.API_KEY as string,
       API_SECRET: process.env.API_SECRET as string,
     },
+
     BCRYPT_SALT: process.env.BCRYPT_SALT as string,
     JWT: {
       ACCESS_SECRET: process.env.ACCESS_SECRET as string,
@@ -70,7 +78,13 @@ const loadEnvVars = (): EnvConfig => {
       CLIENT_SECRET: process.env.CLIENT_SECRET as string,
       CALLBACK_URL: process.env.CALLBACK_URL as string,
     },
+
     FRONTEND_URL: process.env.FRONTEND_URL as string,
+
+    NODE_MAILER: {
+      SENDER_EMAIL: process.env.SENDER_EMAIL as string,
+      SENDER_PASSWORD: process.env.SENDER_PASSWORD as string,
+    },
   };
 };
 

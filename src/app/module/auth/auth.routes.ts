@@ -17,4 +17,6 @@ router.get(
   AuthController.googleCallback
 );
 
+router.get('/passport-forget', AuthController.forgetPassword);
+
 export const authRoutes = router;
