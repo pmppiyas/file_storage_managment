@@ -19,4 +19,6 @@ router.get(
 
 router.get('/passport-forget', AuthController.forgetPassword);
 
+router.get('/reset-password', AuthController.resetPassword);
+
 export const authRoutes = router;

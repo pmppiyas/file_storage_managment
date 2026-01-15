@@ -4,6 +4,8 @@ import { User } from '../user/user.modal';
 import { AppError } from '../../utils/appError';
 import { sendEmail } from '../../utils/sendEmail';
 import { ENV } from '../../config/ENV';
+import { JwtPayload } from 'jsonwebtoken';
+import bcryptjs from 'bcryptjs';
 
 const forgetPassword = async (email: string) => {
   const user = await User.findOne({ email });
@@ -27,6 +29,36 @@ const forgetPassword = async (email: string) => {
   return null;
 };
 
+const resetPassword = async (token: string, newPassword: string) => {
+  let decoded;
+  try {
+    decoded = jwt.verify(token, ENV.JWT.ACCESS_SECRET as string) as JwtPayload;
+  } catch (error) {
+    throw new AppError(httpStatus.UNAUTHORIZED, 'Invalid or Expired Token!');
+  }
+
+  const user = await User.findOne({ email: decoded.email });
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, 'User not found!');
+  }
+
+  const hashedPassword = await bcryptjs.hash(
+    newPassword,
+    Number(ENV.BCRYPT_SALT)
+  );
+
+  await User.findOneAndUpdate(
+    { email: decoded.email },
+    {
+      password: hashedPassword,
+      passwordChangedAt: new Date(),
+    }
+  );
+
+  return null;
+};
+
 export const AuthServices = {
   forgetPassword,
+  resetPassword,
 };

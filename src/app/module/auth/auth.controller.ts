@@ -95,9 +95,24 @@ const forgetPassword = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const resetPassword = catchAsync(async (req: Request, res: Response) => {
+  const { token, newPassword } = req.body;
+
+  await AuthServices.resetPassword(token, newPassword);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message:
+      'Password reset successfully! You can now login with your new password.',
+    data: null,
+  });
+});
+
 export const AuthController = {
   localLogin,
   googleLogin,
   googleCallback,
   forgetPassword,
+  resetPassword,
 };
