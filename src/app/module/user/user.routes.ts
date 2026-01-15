@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { UserControllers } from './user.controller';
 import { validateRequest } from '../../middleware/validateRequest';
-import { userZodSchema } from './user.Validation';
+import { userZodSchema } from './user.validation';
 import { multerUpload } from '../../config/multer';
 
 const router = Router();
