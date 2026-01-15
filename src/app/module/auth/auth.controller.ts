@@ -6,8 +6,8 @@ import { StatusCodes } from 'http-status-codes';
 import { createToken } from '../../utils/token/createToken';
 import { setAuthCookie } from '../../utils/cookie';
 import sendResponse from '../../utils/sendResponse';
-import { ENV } from '../../config/ENV';
 import { AuthServices } from './auth.services';
+import { ENV } from '../../config/ENV';
 
 const localLogin = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {

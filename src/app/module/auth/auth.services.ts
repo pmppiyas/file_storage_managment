@@ -3,9 +3,9 @@ import jwt from 'jsonwebtoken';
 import { User } from '../user/user.modal';
 import { AppError } from '../../utils/appError';
 import { sendEmail } from '../../utils/sendEmail';
-import { ENV } from '../../config/ENV';
 import { JwtPayload } from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
+import { ENV } from '../../config/ENV';
 
 const forgetPassword = async (email: string) => {
   const user = await User.findOne({ email });
