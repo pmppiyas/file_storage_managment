@@ -6,6 +6,7 @@ import { StatusCodes } from 'http-status-codes';
 import { createToken } from '../../utils/token/createToken';
 import { setAuthCookie } from '../../utils/cookie';
 import sendResponse from '../../utils/sendResponse';
+import { ENV } from '../../config/ENV';
 
 const localLogin = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -38,6 +39,51 @@ const localLogin = catchAsync(
   }
 );
 
+const googleLogin = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const redirect = req.query.redirect || '/';
+
+    passport.authenticate('google', {
+      scope: ['profile', 'email'],
+      prompt: 'consent',
+      state: redirect as string,
+    })(req, res, next);
+  }
+);
+
+const googleCallback = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user;
+    if (!user) {
+      throw new AppError(StatusCodes.NOT_FOUND, 'User not found');
+    }
+    const token = createToken(user);
+
+    setAuthCookie(res, token);
+
+    let redirectTo =
+      req.query?.state && typeof req.query.state === 'string'
+        ? req.query.state.replace(/^\//, '')
+        : 'dashboard';
+
+    if (redirectTo.startsWith('/')) {
+      redirectTo = redirectTo.slice(1);
+    }
+    if (req.query.json === 'true') {
+      return sendResponse(res, {
+        success: true,
+        statusCode: StatusCodes.OK,
+        message: 'Google login successfully',
+        data: token,
+      });
+    }
+
+    res.redirect(`${ENV.FRONTEND_URL}/${redirectTo}`);
+  }
+);
+
 export const AuthController = {
   localLogin,
+  googleLogin,
+  googleCallback,
 };

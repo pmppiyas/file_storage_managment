@@ -17,6 +17,12 @@ interface EnvConfig {
     REFRESH_SECRET: string;
     REFRESH_EXPIRED: string;
   };
+  GOOGLE: {
+    CLIENT_ID: string;
+    CLIENT_SECRET: string;
+    CALLBACK_URL: string;
+  };
+  FRONTEND_URL: string;
 }
 
 const loadEnvVars = (): EnvConfig => {
@@ -32,6 +38,10 @@ const loadEnvVars = (): EnvConfig => {
     'ACCESS_EXPIRED',
     'REFRESH_SECRET',
     'REFRESH_EXPIRED',
+    'CLIENT_ID',
+    'CLIENT_SECRET',
+    'CALLBACK_URL',
+    'FRONTEND_URL',
   ];
   requiredEnvVars.forEach((key) => {
     if (!process.env[key]) {
@@ -54,6 +64,13 @@ const loadEnvVars = (): EnvConfig => {
       REFRESH_SECRET: process.env.REFRESH_SECRET as string,
       REFRESH_EXPIRED: process.env.REFRESH_EXPIRED as string,
     },
+
+    GOOGLE: {
+      CLIENT_ID: process.env.CLIENT_ID as string,
+      CLIENT_SECRET: process.env.CLIENT_SECRET as string,
+      CALLBACK_URL: process.env.CALLBACK_URL as string,
+    },
+    FRONTEND_URL: process.env.FRONTEND_URL as string,
   };
 };
 

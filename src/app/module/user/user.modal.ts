@@ -14,16 +14,18 @@ const UserModal = new Schema<IUser>(
     },
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: {
-      type: String,
-      required: true,
-    },
-    profileImage: { type: String },
     auths: {
       type: [authSchema],
       required: true,
       _id: false,
     },
+    password: {
+      type: String,
+      required: function () {
+        return this.auths.some((auth) => auth.provider === 'credentials');
+      },
+    },
+    profileImage: { type: String },
     status: {
       type: String,
       enum: Object.values(IStatus),
