@@ -5,6 +5,7 @@ import router from './app/routes/router';
 import { globalErrorHandler } from './app/middleware/globalErrorHandler';
 import passport from 'passport';
 import './app/config/passport';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(passport.initialize());
 app.use(compression());
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(
   cors({
