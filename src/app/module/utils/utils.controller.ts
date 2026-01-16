@@ -26,6 +26,28 @@ const renameItem = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const copyItem = catchAsync(async (req: Request, res: Response) => {
+  const { itemId, targetFolderId, type } = req.body;
+  const user = req.user as JwtPayload;
+
+  const result = await UtilsServices.copyItem(
+    user.userId,
+    itemId,
+    targetFolderId,
+    type
+  );
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: `${
+      type.charAt(0).toUpperCase() + type.slice(1)
+    } copied successfully`,
+    data: result,
+  });
+});
+
 export const UtilsController = {
   renameItem,
+  copyItem,
 };
