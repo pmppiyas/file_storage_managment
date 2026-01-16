@@ -6,7 +6,7 @@ import {
   handleZodValidationError,
   validationError,
 } from '../helper/errorHelperFunction';
-import { ENV } from '../config/ENV';
+import { envVars } from '../config/env';
 
 export const globalErrorHandler = (
   err: any,
@@ -42,6 +42,6 @@ export const globalErrorHandler = (
     success: false,
     message: message,
     err,
-    stack: ENV.NODE_ENV === 'development' ? err.stack : '',
+    stack: envVars.NODE_ENV === 'development' ? err.stack : '',
   });
 };

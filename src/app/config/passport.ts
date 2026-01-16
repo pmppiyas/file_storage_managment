@@ -3,7 +3,7 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { User } from '../module/user/user.modal';
 import bcryptjs from 'bcryptjs';
-import { ENV } from './ENV';
+import { envVars } from './env';
 
 passport.use(
   new LocalStrategy(
@@ -52,9 +52,9 @@ passport.use(
 passport.use(
   new GoogleStrategy(
     {
-      clientID: ENV.GOOGLE.CLIENT_ID,
-      clientSecret: ENV.GOOGLE.CLIENT_SECRET,
-      callbackURL: ENV.GOOGLE.CALLBACK_URL,
+      clientID: envVars.GOOGLE.CLIENT_ID,
+      clientSecret: envVars.GOOGLE.CLIENT_SECRET,
+      callbackURL: envVars.GOOGLE.CALLBACK_URL,
       passReqToCallback: true,
     },
     async (_req, _accessToken, _refreshToken, profile, done) => {

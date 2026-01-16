@@ -5,7 +5,7 @@ import { AppError } from '../../utils/appError';
 import { sendEmail } from '../../utils/sendEmail';
 import { JwtPayload } from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
-import { ENV } from '../../config/ENV';
+import { envVars } from '../../config/env';
 
 const forgetPassword = async (email: string) => {
   const user = await User.findOne({ email });
@@ -18,11 +18,11 @@ const forgetPassword = async (email: string) => {
   }
 
   const jwtPayload = { email: user.email, id: user._id };
-  const resetToken = jwt.sign(jwtPayload, ENV.JWT.ACCESS_SECRET as string, {
+  const resetToken = jwt.sign(jwtPayload, envVars.JWT.ACCESS_SECRET as string, {
     expiresIn: '15m',
   });
 
-  const resetUILink = `${ENV.FRONTEND_URL}/reset-password?token=${resetToken}`;
+  const resetUILink = `${envVars.FRONTEND_URL}/reset-password?token=${resetToken}`;
 
   await sendEmail(user.email, resetUILink);
 
@@ -32,7 +32,10 @@ const forgetPassword = async (email: string) => {
 const resetPassword = async (token: string, newPassword: string) => {
   let decoded;
   try {
-    decoded = jwt.verify(token, ENV.JWT.ACCESS_SECRET as string) as JwtPayload;
+    decoded = jwt.verify(
+      token,
+      envVars.JWT.ACCESS_SECRET as string
+    ) as JwtPayload;
   } catch (error) {
     throw new AppError(httpStatus.UNAUTHORIZED, 'Invalid or Expired Token!');
   }
@@ -44,7 +47,7 @@ const resetPassword = async (token: string, newPassword: string) => {
 
   const hashedPassword = await bcryptjs.hash(
     newPassword,
-    Number(ENV.BCRYPT_SALT)
+    Number(envVars.BCRYPT_SALT)
   );
 
   await User.findOneAndUpdate(

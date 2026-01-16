@@ -1,7 +1,7 @@
 
 # Next Blog Starter
 
-A simple **Blog Application Starter Pack** built with **TypeScript, Express.js**.  
+A simple **Blog Application Starter Pack** built with **TypeScript, Express.js**.
 This project is designed for the **Next Level Web Development Bootcamp** to help learners practice Prisma hands-on by building a blog platform.
 
 ---
@@ -9,7 +9,7 @@ This project is designed for the **Next Level Web Development Bootcamp** to help
 ## Features
 - TypeScript + Express.js setup
 - Modular project structure
-- Environment configuration with `dotenv`
+- envVarsironment configuration with `dotenvVars`
 - Ready to extend with blog modules (Posts, Users, etc.)
 
 ---
@@ -36,10 +36,10 @@ yarn install
 pnpm install
 ```
 
-Setup environment variables:
+Setup envVarsironment variables:
 
 ```bash
-cp .env.example .env
+cp .envVars.example .envVars
 ```
 
 Run the development server:
@@ -65,7 +65,7 @@ Prisma-Blog/
 │── src/
 │   ├── app.ts             # Express app configuration
 │   ├── server.ts          # Server entry point
-│   ├── config/            # Environment & configuration files
+│   ├── config/            # envVarsironment & configuration files
 │   └── modules/           # Application modules (posts, users, etc.)
 │── package.json           # Project metadata & scripts
 │── pnpm-lock.yaml         # Lockfile (pnpm)
@@ -97,5 +97,5 @@ By using this project, students will learn how to:
 
 * Connect a Node.js app with Prisma ORM
 * Build modular APIs
-* Manage environment variables
+* Manage envVarsironment variables
 * Structure scalable backend projects

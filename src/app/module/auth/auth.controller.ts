@@ -7,7 +7,8 @@ import { createToken } from '../../utils/token/createToken';
 import { setAuthCookie } from '../../utils/cookie';
 import sendResponse from '../../utils/sendResponse';
 import { AuthServices } from './auth.services';
-import { ENV } from '../../config/ENV';
+import { envVars } from '../../config/env';
+
 
 const localLogin = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -79,7 +80,7 @@ const googleCallback = catchAsync(
       });
     }
 
-    res.redirect(`${ENV.FRONTEND_URL}/${redirectTo}`);
+    res.redirect(`${envVars.FRONTEND_URL}/${redirectTo}`);
   }
 );
 

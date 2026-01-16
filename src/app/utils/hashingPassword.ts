@@ -1,8 +1,8 @@
 import bcryptjs from 'bcryptjs';
-import { ENV } from '../config/ENV';
+import { envVars } from '../config/env';
 
 export const hashingPassword = async (password: string): Promise<string> => {
-  const saltRound = Number(ENV.BCRYPT_SALT);
+  const saltRound = Number(envVars.BCRYPT_SALT);
 
   return await bcryptjs.hash(password, saltRound);
 };

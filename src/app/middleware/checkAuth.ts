@@ -1,9 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import { Types } from 'mongoose';
 import { AppError } from '../utils/appError';
 import { StatusCodes } from 'http-status-codes';
 import { verifyToken } from '../utils/token/verifyToken';
-import { ENV } from '../config/ENV';
+import { envVars } from '../config/env';
 import { JwtPayload } from 'jsonwebtoken';
 import { User } from '../module/user/user.modal';
 import { IStatus } from '../module/user/user.interface';
@@ -20,7 +19,7 @@ export const checkAuth = () => {
 
       const verifiedToken = verifyToken(
         accessToken,
-        ENV.JWT.ACCESS_SECRET
+        envVars.JWT.ACCESS_SECRET
       ) as JwtPayload;
 
       const isUserExist = await User.findById(verifiedToken.userId);

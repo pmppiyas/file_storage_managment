@@ -4,6 +4,7 @@ import { authRoutes } from '../module/auth/auth.routes';
 import { folderRoutes } from '../module/folder/folder.routes';
 import { fileRoutes } from '../module/file/file.routes';
 import { utilsRoutes } from '../module/utils/utils.routes';
+import { metaRoutes } from '../module/meta/meta.routes';
 
 const router = Router();
 
@@ -29,6 +30,10 @@ const moduleRoutes = [
   {
     path: '/utils',
     route: utilsRoutes,
+  },
+  {
+    path: '/meta',
+    route: metaRoutes,
   },
 ];
 

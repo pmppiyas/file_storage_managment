@@ -1,12 +1,12 @@
 import nodemailer from 'nodemailer';
-import { ENV } from '../config/ENV';
+import { envVars } from '../config/env';
 
 export const sendEmail = async (to: string, resetLink: string) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: ENV.NODE_MAILER.SENDER_EMAIL,
-      pass: ENV.NODE_MAILER.SENDER_PASSWORD,
+      user: envVars.NODE_MAILER.SENDER_EMAIL,
+      pass: envVars.NODE_MAILER.SENDER_PASSWORD,
     },
   });
 

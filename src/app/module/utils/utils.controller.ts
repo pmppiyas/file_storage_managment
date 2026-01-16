@@ -1,6 +1,6 @@
 import { JwtPayload } from 'jsonwebtoken';
 import catchAsync from '../../utils/catchAsync';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import { UtilsServices } from './utils.services';
 import sendResponse from '../../utils/sendResponse';
 import { StatusCodes } from 'http-status-codes';

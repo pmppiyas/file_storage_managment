@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import { envVars } from './../config/env';
 
 interface AuthTokens {
   accessToken?: string;
@@ -6,7 +7,7 @@ interface AuthTokens {
 }
 
 export const setAuthCookie = (res: Response, tokenInfo: AuthTokens) => {
-  const isProd = process.env.NODE_ENV === 'production';
+  const isProd = envVars.NODE_ENV === 'production';
 
   if (tokenInfo.accessToken) {
     res.cookie('access-token', tokenInfo.accessToken, {
