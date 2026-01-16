@@ -12,6 +12,10 @@ export const fileSchema = new Schema(
     },
     fileUrl: { type: String },
     publicId: { type: String },
+    isFavorite: {
+      type: Boolean,
+      default: false,
+    },
     size: { type: Number, default: 0 },
     isDeleted: { type: Boolean, default: false },
   },

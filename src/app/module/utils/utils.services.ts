@@ -114,8 +114,41 @@ const deleteItem = async (
   }
 };
 
+const toggleFavorite = async (
+  userId: string,
+  itemId: string,
+  type: 'folder' | 'file'
+) => {
+  let result;
+
+  if (type === 'folder') {
+    const folder = await Folder.findOne({ _id: itemId, owner: userId });
+
+    if (!folder) throw new AppError(StatusCodes.NOT_FOUND, 'Folder not found');
+
+    result = await Folder.findByIdAndUpdate(
+      itemId,
+      { isFavorite: !folder.isFavorite },
+      { new: true }
+    );
+  } else {
+    const file = await File.findOne({ _id: itemId, owner: userId });
+
+    if (!file) throw new AppError(StatusCodes.NOT_FOUND, 'File not found');
+
+    result = await File.findByIdAndUpdate(
+      itemId,
+      { isFavorite: !file.isFavorite },
+      { new: true }
+    );
+  }
+
+  return result;
+};
+
 export const UtilsServices = {
   renameItem,
   copyItem,
   deleteItem,
+  toggleFavorite,
 };

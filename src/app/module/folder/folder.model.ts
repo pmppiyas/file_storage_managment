@@ -9,6 +9,10 @@ const folderSchema = new Schema(
       type: String,
       default: 'folder',
     },
+    isFavorite: {
+      type: Boolean,
+      default: false,
+    },
     isDeleted: { type: Boolean, default: false },
   },
   {

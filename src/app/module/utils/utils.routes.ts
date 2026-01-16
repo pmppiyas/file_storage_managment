@@ -10,4 +10,6 @@ router.patch('/copy', checkAuth(), UtilsController.copyItem);
 
 router.delete('/delete', checkAuth(), UtilsController.deleteItem);
 
+router.put('/favourite', checkAuth(), UtilsController.toggleFavorite);
+
 export const utilsRoutes = router;

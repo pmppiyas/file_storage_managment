@@ -63,8 +63,25 @@ const deleteItem = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const toggleFavorite = catchAsync(async (req: Request, res: Response) => {
+  const { itemId, type } = req.body;
+  const user = req.user as JwtPayload;
+
+  const result = await UtilsServices.toggleFavorite(user.userId, itemId, type);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: result?.isFavorite
+      ? 'Added to favorites'
+      : 'Removed from favorites',
+    data: result,
+  });
+});
+
 export const UtilsController = {
   renameItem,
   copyItem,
   deleteItem,
+  toggleFavorite,
 };
