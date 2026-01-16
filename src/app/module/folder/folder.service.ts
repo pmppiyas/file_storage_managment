@@ -1,32 +1,53 @@
 import { StatusCodes } from 'http-status-codes';
 import { AppError } from '../../utils/appError';
 import { Folder } from './folder.model';
+import { File } from '../file/file.model';
 
-const getFolders = async (userId: string, parentId?: string) => {
-  let currentParentId = parentId;
+const getFoldersAndFile = async (userId: string, parentId?: string) => {
+  let currentFolder;
 
-  if (!currentParentId) {
-    let rootFolder = await Folder.findOne({ owner: userId, parentId: null });
+  if (!parentId) {
+    currentFolder = await Folder.findOne({ owner: userId, parentId: null });
 
-    if (!rootFolder) {
-      rootFolder = await Folder.create({
+    if (!currentFolder) {
+      currentFolder = await Folder.create({
         name: 'My Files',
         owner: userId,
         parentId: null,
       });
     }
-    currentParentId = rootFolder._id.toString();
+  } else {
+    currentFolder = await Folder.findOne({ _id: parentId, owner: userId });
+
+    if (!currentFolder) {
+      throw new Error('Folder not found');
+    }
   }
+
+  const currentParentId = (currentFolder._id as any).toString();
 
   const folders = await Folder.find({
     owner: userId,
     parentId: currentParentId,
     isDeleted: false,
-  });
+  }).sort({ createdAt: -1 });
+
+  const files = await File.find({
+    owner: userId,
+    folderId: currentParentId,
+    isDeleted: false,
+  }).sort({ createdAt: -1 });
 
   return {
-    currentFolderId: currentParentId,
-    folders,
+    meta: {
+      folderId: currentParentId,
+      folderName: currentFolder.name,
+      parentId: currentFolder.parentId,
+    },
+    contents: [
+      ...folders.map((f) => ({ ...f.toObject() })),
+      ...files.map((f) => ({ ...f.toObject() })),
+    ],
   };
 };
 
@@ -36,6 +57,18 @@ const createFolder = async (
   parentId?: string
 ) => {
   let finalParentId = parentId;
+
+  if (parentId) {
+    const isParentExist = await Folder.findOne({
+      _id: parentId,
+      owner: userId,
+      isDeleted: false,
+    });
+
+    if (!isParentExist) {
+      throw new AppError(StatusCodes.NOT_FOUND, 'Parent folder is not found');
+    }
+  }
 
   if (!finalParentId) {
     const rootFolder = await Folder.findOne({ owner: userId, parentId: null });
@@ -52,7 +85,7 @@ const createFolder = async (
   });
 
   if (isExist) {
-    throw new AppError(StatusCodes.CONFLICT, 'File name already exist');
+    throw new AppError(StatusCodes.CONFLICT, 'Folder name already exists');
   }
 
   const newFolder = await Folder.create({
@@ -65,6 +98,6 @@ const createFolder = async (
 };
 
 export const FolderServices = {
-  getFolders,
+  getFoldersAndFile,
   createFolder,
 };

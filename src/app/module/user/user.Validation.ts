@@ -20,7 +20,7 @@ export const userZodSchema = z.object({
           'Password must include uppercase, lowercase, number, and special character',
       }
     ),
-  profileImage: z.string().optional(),
+  photoUrl: z.string().optional(),
   isActive: z.string().default(IStatus.ACTIVE),
   isVerified: z.boolean().default(false),
 });

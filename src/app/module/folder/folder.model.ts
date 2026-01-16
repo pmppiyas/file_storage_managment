@@ -5,6 +5,10 @@ const folderSchema = new Schema(
     name: { type: String, required: true, default: 'Root' },
     owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     parentId: { type: Schema.Types.ObjectId, ref: 'Folder', default: null },
+    fileType: {
+      type: String,
+      default: 'folder',
+    },
     isDeleted: { type: Boolean, default: false },
   },
   {

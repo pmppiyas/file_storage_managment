@@ -4,7 +4,7 @@ import { FolderController } from './folder.controller';
 
 const router = Router();
 
-router.get('/', checkAuth(), FolderController.getFolders);
+router.get('/', checkAuth(), FolderController.getFoldersAndFile);
 
 router.post('/', checkAuth(), FolderController.createFolder);
 

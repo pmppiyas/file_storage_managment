@@ -25,7 +25,7 @@ const UserModal = new Schema<IUser>(
         return this.auths.some((auth) => auth.provider === 'credentials');
       },
     },
-    profileImage: { type: String },
+    photoUrl: { type: String },
     status: {
       type: String,
       enum: Object.values(IStatus),

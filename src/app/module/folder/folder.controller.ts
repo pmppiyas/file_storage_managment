@@ -5,14 +5,14 @@ import sendResponse from '../../utils/sendResponse';
 import { StatusCodes } from 'http-status-codes';
 import { JwtPayload } from 'jsonwebtoken';
 
-const getFolders = catchAsync(
+const getFoldersAndFile = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const user = req?.user as JwtPayload;
     const userId = user.userId;
 
     const parentId = req.query.parentId as string | undefined;
 
-    const result = await FolderServices.getFolders(userId, parentId);
+    const result = await FolderServices.getFoldersAndFile(userId, parentId);
 
     sendResponse(res, {
       success: true,
@@ -42,6 +42,6 @@ const createFolder = catchAsync(
 );
 
 export const FolderController = {
-  getFolders,
+  getFoldersAndFile,
   createFolder,
 };

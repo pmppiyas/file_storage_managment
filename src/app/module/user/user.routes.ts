@@ -8,7 +8,7 @@ const router = Router();
 
 router.post(
   '/signup',
-  multerUpload.single('photo'),
+  multerUpload.single('file'),
   validateRequest(userZodSchema),
   UserControllers.createUser
 );

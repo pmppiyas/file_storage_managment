@@ -16,7 +16,7 @@ export interface IUser {
   name: string;
   email: string;
   password?: string;
-  profileImage?: string;
+  photoUrl?: string;
   auths: IAuth[];
   status: IStatus;
   isVerified: boolean;
