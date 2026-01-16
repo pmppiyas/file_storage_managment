@@ -1,101 +1,54 @@
+# Storage Management System - Backend
 
-# Next Blog Starter
+A modular RESTful API built with **Node.js**, **Express**, and **TypeScript**.
 
-A simple **Blog Application Starter Pack** built with **TypeScript, Express.js**.
-This project is designed for the **Next Level Web Development Bootcamp** to help learners practice Prisma hands-on by building a blog platform.
+## 🚀 Live Links
+- **API URL:** [https://file-storage-backend-eta.vercel.app](https://file-storage-backend-eta.vercel.app)
+- **Repository:** [https://github.com/pmppiyas/file_storage_managment](https://github.com/pmppiyas/file_storage_managment)
+- **Postman:** [Api Collection](https://www.postman.com/altimetry-observer-2783100/sperktech/folder/40648991-94e99113-61e0-4d37-a7cd-8473c582fd08)
 
----
+## 🔐 Test Credentials
+For testing the protected routes, you can use the following pre-created user account:
 
-## Features
-- TypeScript + Express.js setup
-- Modular project structure
-- envVarsironment configuration with `dotenvVars`
-- Ready to extend with blog modules (Posts, Users, etc.)
+- **Email:** `pmppiyas@gmail.com`
+- **Password:** `Password123!`
 
----
+## ✨ Key Features
+- **Cloud Storage:** **Cloudinary** integration via **Multer** for file handling.
+- **Automated Emails:** **Nodemailer** for system notifications.
+- **Advanced Auth:** **Passport.js** (JWT & Local) for secure access.
+- **Recent Tracking:** Activity-based file tracking via `lastViewedAt`.
+- **Database:** **Mongoose (MongoDB)** for structured data modeling.
+- **Error Handling:** Centralized global middleware for consistent responses.
+- **Architecture:** Clean **Modular Pattern** (Route-Controller-Service).
 
-## Installation
+## 🛠️ Tech Stack
+- **Core:** Node.js, Express.js, TypeScript
+- **Database:** MongoDB (Mongoose)
+- **Auth:** Passport.js, JWT, Bcrypt
+- **Services:** Cloudinary, Nodemailer
+- **Validation:** Zod
 
-Clone the repository:
-
-```bash
-git clone https://github.com/Apollo-Level2-Web-Dev/next-blog-starter.git
-cd next-blog-starter
+## 📂 Project Structure
+```text
+src/
+├── app/
+│   ├── config/         # Passport, Cloudinary & Email configs
+│   ├── middleware/     # Error handler & Auth guards
+│   ├── modules/        # Domain-driven modules (Auth, File, User)
+│   ├── routes/         # Centralized routing
+│   └── utils/          # Helpers (Email, Response)
+├── app.ts              # App setup
+└── server.ts           # DB connection & Entry point
 ```
 
-Install dependencies:
 
+
+### 1. Clone the Repository
 ```bash
-# using npm
-npm install
-
-# using yarn
-yarn install
-
-# using pnpm
+git clone https://github.com/pmppiyas/file_storage_managment.git
+cd file_storage_managment
 pnpm install
 ```
 
-Setup envVarsironment variables:
-
-```bash
-cp .envVars.example .envVars
-```
-
-Run the development server:
-
-```bash
-# using npm
-npm run dev
-
-# using yarn
-yarn dev
-
-# using pnpm
-pnpm dev
-```
-
----
-
-## Folder Structure
-
-```
-Prisma-Blog/
-│── node_modules/          # Dependencies
-│── src/
-│   ├── app.ts             # Express app configuration
-│   ├── server.ts          # Server entry point
-│   ├── config/            # envVarsironment & configuration files
-│   └── modules/           # Application modules (posts, users, etc.)
-│── package.json           # Project metadata & scripts
-│── pnpm-lock.yaml         # Lockfile (pnpm)
-│── tsconfig.json          # TypeScript configuration
-│── README.md              # Documentation
-```
-
----
-
-## Scripts
-
-```bash
-# Run in development mode
-pnpm dev
-
-# Build for production
-pnpm build
-
-# Run production build
-pnpm start
-```
-
----
-
-## Learning Objective
-
-This starter pack is part of the **Next Level Web Development Bootcamp** curriculum.
-By using this project, students will learn how to:
-
-* Connect a Node.js app with Prisma ORM
-* Build modular APIs
-* Manage envVarsironment variables
-* Structure scalable backend projects
+### 🌳 Happy Coding 🎋
