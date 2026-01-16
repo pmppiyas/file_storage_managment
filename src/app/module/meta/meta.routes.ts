@@ -6,4 +6,6 @@ const router = Router();
 
 router.get('/stats', checkAuth(), MetaControllers.getStorageStats);
 
+router.get('/recent', checkAuth(), MetaControllers.getRecentFiles);
+
 export const metaRoutes = router;

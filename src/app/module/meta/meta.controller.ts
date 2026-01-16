@@ -19,6 +19,21 @@ const getStorageStats = catchAsync(
   }
 );
 
+const getRecentFiles = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = req?.user as JwtPayload;
+    const result = await MetaServices.getRecentFiles(user.userId);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: StatusCodes.OK,
+      message: 'Recent files retrieved successfully',
+      data: result,
+    });
+  }
+);
+
 export const MetaControllers = {
   getStorageStats,
+  getRecentFiles,
 };

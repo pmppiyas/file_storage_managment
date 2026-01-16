@@ -34,6 +34,19 @@ const getStorageStats = async (userId: string) => {
   };
 };
 
+const getRecentFiles = async (userId: string) => {
+  const recentFiles = await File.find({
+    owner: new mongoose.Types.ObjectId(userId),
+    isDeleted: false,
+  })
+    .sort({ updatedAt: -1 })
+    .limit(10)
+    .select('name fileType size updatedAt fileUrl');
+
+  return recentFiles;
+};
+
 export const MetaServices = {
   getStorageStats,
+  getRecentFiles,
 };
