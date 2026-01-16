@@ -9,7 +9,6 @@ const uploadPhoto = catchAsync(async (req: Request, res: Response) => {
   const file = req.file;
   const { folderId } = req.query;
   const user = req.user as JwtPayload;
-  const userId = user.userId;
 
   if (!file) {
     throw new Error('Please upload a photo');
@@ -17,7 +16,7 @@ const uploadPhoto = catchAsync(async (req: Request, res: Response) => {
 
   const result = await FileServices.uploadPhoto(
     file,
-    userId,
+    user.userId,
     folderId as string
   );
 
@@ -29,6 +28,27 @@ const uploadPhoto = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const createNote = catchAsync(async (req: Request, res: Response) => {
+  const { name, content } = req.body;
+  const { folderId } = req.query;
+  const user = req.user as JwtPayload;
+
+  const result = await FileServices.createNote(
+    user.userId,
+    folderId as string,
+    name,
+    content
+  );
+
+  sendResponse(res, {
+    statusCode: StatusCodes.CREATED,
+    success: true,
+    message: 'Note created successfully',
+    data: result,
+  });
+});
+
 export const FileControllers = {
   uploadPhoto,
+  createNote,
 };

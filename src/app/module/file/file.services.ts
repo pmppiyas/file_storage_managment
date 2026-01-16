@@ -16,6 +16,24 @@ const uploadPhoto = async (file: any, userId: string, folderId: string) => {
   return result;
 };
 
+const createNote = async (
+  userId: string,
+  folderId: string,
+  name: string,
+  content: string
+) => {
+  const result = await File.create({
+    name,
+    content,
+    owner: userId,
+    folderId,
+    fileType: 'note',
+    size: Buffer.byteLength(content, 'utf8'),
+  });
+  return result;
+};
+
 export const FileServices = {
   uploadPhoto,
+  createNote,
 };

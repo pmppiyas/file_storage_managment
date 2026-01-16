@@ -12,4 +12,6 @@ router.post(
   FileControllers.uploadPhoto
 );
 
+router.post('/note', checkAuth(), FileControllers.createNote);
+
 export const fileRoutes = router;

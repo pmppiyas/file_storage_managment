@@ -11,7 +11,7 @@ export const fileSchema = new Schema(
       required: true,
     },
     fileUrl: { type: String },
-    publicId: { type: String, required: true },
+    publicId: { type: String },
     size: { type: Number, default: 0 },
     isDeleted: { type: Boolean, default: false },
   },
