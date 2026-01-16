@@ -3,6 +3,7 @@ import { userRoutes } from '../module/user/user.routes';
 import { authRoutes } from '../module/auth/auth.routes';
 import { folderRoutes } from '../module/folder/folder.routes';
 import { fileRoutes } from '../module/file/file.routes';
+import { utilsRoutes } from '../module/utils/utils.routes';
 
 const router = Router();
 
@@ -24,6 +25,10 @@ const moduleRoutes = [
   {
     path: '/file',
     route: fileRoutes,
+  },
+  {
+    path: '/utils',
+    route: utilsRoutes,
   },
 ];
 
