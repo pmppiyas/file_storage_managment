@@ -5,16 +5,16 @@ import { StatusCodes } from 'http-status-codes';
 import { JwtPayload } from 'jsonwebtoken';
 import { FileServices } from './file.services';
 
-const uploadPhoto = catchAsync(async (req: Request, res: Response) => {
+const uploadFile = catchAsync(async (req: Request, res: Response) => {
   const file = req.file;
   const { folderId } = req.query;
   const user = req.user as JwtPayload;
 
   if (!file) {
-    throw new Error('Please upload a photo');
+    throw new Error('Please upload a file');
   }
 
-  const result = await FileServices.uploadPhoto(
+  const result = await FileServices.uploadFile(
     file,
     user.userId,
     folderId as string
@@ -23,7 +23,7 @@ const uploadPhoto = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: StatusCodes.CREATED,
     success: true,
-    message: 'Photo uploaded and saved successfully',
+    message: 'File uploaded and saved successfully',
     data: result,
   });
 });
@@ -49,6 +49,6 @@ const createNote = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const FileControllers = {
-  uploadPhoto,
+  uploadFile,
   createNote,
 };

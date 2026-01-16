@@ -1,6 +1,6 @@
 import { File } from './file.model';
 
-const uploadPhoto = async (file: any, userId: string, folderId: string) => {
+const uploadFile = async (file: any, userId: string, folderId: string) => {
   const extension = file.originalname.split('.').pop()?.toLowerCase();
 
   const result = await File.create({
@@ -34,6 +34,6 @@ const createNote = async (
 };
 
 export const FileServices = {
-  uploadPhoto,
+  uploadFile,
   createNote,
 };

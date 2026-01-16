@@ -4,33 +4,36 @@ import { cloudinary } from './cloudinary';
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  params: async (req, file) => {
-    const originalNameWithoutExt = file.originalname
-      .split('.')
-      .slice(0, -1)
-      .join('.')
-      .toLowerCase()
-      .replace(/\s+/g, '_')
-      .replace(/[^a-z0-9_]/gi, '');
+  params: {
+    folder: 'storage',
+    resource_type: 'auto',
+    public_id: (req: any, file: any) => {
+      const originalNameWithoutExt = file.originalname
+        .split('.')
+        .slice(0, -1)
+        .join('.')
+        .toLowerCase()
+        .replace(/\s+/g, '_')
+        .replace(/[^a-z0-9_]/gi, '');
 
-    return {
-      folder: 'storage',
-      public_id: originalNameWithoutExt,
-      resource_type: 'auto',
-    };
-  },
+      return `${originalNameWithoutExt}_${Date.now()}`;
+    },
+  } as any,
 });
 
 export const multerUpload = multer({
   storage: storage,
   limits: {
-    fileSize: 5 * 1024 * 1024,
+    fileSize: 10 * 1024 * 1024,
   },
   fileFilter: (req, file, cb) => {
-    if (file.mimetype.startsWith('image/')) {
+    if (
+      file.mimetype.startsWith('image/') ||
+      file.mimetype === 'application/pdf'
+    ) {
       cb(null, true);
     } else {
-      cb(new Error('Only image files are allowed'));
+      cb(new Error('Only image and PDF files are allowed') as any, false);
     }
   },
 });

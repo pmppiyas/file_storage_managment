@@ -6,10 +6,10 @@ import { checkAuth } from '../../middleware/checkAuth';
 const router = Router();
 
 router.post(
-  '/photo',
+  '/',
   checkAuth(),
-  multerUpload.single('photo'),
-  FileControllers.uploadPhoto
+  multerUpload.single('file'),
+  FileControllers.uploadFile
 );
 
 router.post('/note', checkAuth(), FileControllers.createNote);
