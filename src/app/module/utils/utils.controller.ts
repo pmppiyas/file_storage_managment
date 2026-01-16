@@ -47,7 +47,24 @@ const copyItem = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const deleteItem = catchAsync(async (req: Request, res: Response) => {
+  const { itemId, type } = req.body;
+  const user = req.user as JwtPayload;
+
+  const result = await UtilsServices.deleteItem(user.userId, itemId, type);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: `${
+      type.charAt(0).toUpperCase() + type.slice(1)
+    } deleted successfully`,
+    data: result,
+  });
+});
+
 export const UtilsController = {
   renameItem,
   copyItem,
+  deleteItem,
 };

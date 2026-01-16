@@ -4,6 +4,7 @@ import { Folder } from '../folder/folder.model';
 import { File } from '../file/file.model';
 import { copyFolder } from '../../utils/copyFolder';
 import mongoose from 'mongoose';
+import { deleteFolder } from '../../utils/deleteFolder';
 
 const renameItem = async (
   userId: string,
@@ -40,7 +41,7 @@ const renameItem = async (
   return result;
 };
 
-export const copyItem = async (
+const copyItem = async (
   userId: string,
   itemId: string,
   targetFolderId: string,
@@ -83,7 +84,38 @@ export const copyItem = async (
   }
 };
 
+const deleteItem = async (
+  userId: string,
+  itemId: string,
+  type: 'folder' | 'file'
+) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  try {
+    if (type === 'file') {
+      const result = await File.findOneAndUpdate(
+        { _id: itemId, owner: userId },
+        { isDeleted: true },
+        { session, new: true }
+      );
+      if (!result) throw new Error('File not found');
+    } else {
+      await deleteFolder(userId, itemId, session);
+    }
+
+    await session.commitTransaction();
+    return null;
+  } catch (error) {
+    await session.abortTransaction();
+    throw error;
+  } finally {
+    await session.endSession();
+  }
+};
+
 export const UtilsServices = {
   renameItem,
   copyItem,
+  deleteItem,
 };
