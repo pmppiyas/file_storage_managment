@@ -3,17 +3,20 @@
 A modular RESTful API built with **Node.js**, **Express**, and **TypeScript**.
 
 ## 🚀 Live Links
+
 - **API URL:** [https://file-storage-backend-eta.vercel.app](https://file-storage-backend-eta.vercel.app)
 - **Repository:** [https://github.com/pmppiyas/file_storage_managment](https://github.com/pmppiyas/file_storage_managment)
 - **Postman:** [Api Collection](https://www.postman.com/altimetry-observer-2783100/sperktech/folder/40648991-94e99113-61e0-4d37-a7cd-8473c582fd08)
 
 ## 🔐 Test Credentials
+
 For testing the protected routes, you can use the following pre-created user account:
 
 - **Email:** `pmppiyas@gmail.com`
 - **Password:** `Password123!`
 
 ## ✨ Key Features
+
 - **Cloud Storage:** **Cloudinary** integration via **Multer** for file handling.
 - **Automated Emails:** **Nodemailer** for system notifications.
 - **Advanced Auth:** **Passport.js** (JWT & Local) for secure access.
@@ -23,6 +26,7 @@ For testing the protected routes, you can use the following pre-created user acc
 - **Architecture:** Clean **Modular Pattern** (Route-Controller-Service).
 
 ## 🛠️ Tech Stack
+
 - **Core:** Node.js, Express.js, TypeScript
 - **Database:** MongoDB (Mongoose)
 - **Auth:** Passport.js, JWT, Bcrypt
@@ -30,6 +34,7 @@ For testing the protected routes, you can use the following pre-created user acc
 - **Validation:** Zod
 
 ## 📂 Project Structure
+
 ```text
 src/
 ├── app/
@@ -42,9 +47,8 @@ src/
 └── server.ts           # DB connection & Entry point
 ```
 
-
-
 ### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/pmppiyas/file_storage_managment.git
 cd file_storage_managment
